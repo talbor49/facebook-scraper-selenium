@@ -96,6 +96,7 @@ class CollectPosts(object):
             link.click()
         posts = self.browser.find_elements_by_class_name(
             "userContentWrapper")
+        print('found {0} posts!'.format(len(posts)))
         poster_names = self.browser.find_elements_by_xpath(
             "//a[@data-hovercard-referer]")
 
@@ -118,7 +119,9 @@ class CollectPosts(object):
 
     def collect(self, typ):
         if typ == "groups":
+            print('Have ids {}, collecting', self.ids)
             for iden in self.ids:
+                print('Collect iden {}'.format(iden))
                 self.collect_groups(iden)
         elif typ == "pages":
             for iden in self.ids:
@@ -142,7 +145,9 @@ class CollectPosts(object):
             self.browser.find_element_by_name('pass').send_keys(password)
 
             # clicking on login button
-            self.browser.find_element_by_id('loginbutton').click()
+            self.browser.find_element_by_id('u_0_b').click()
+            print('Logged in')
+            return
             # if your account uses multi factor authentication
             mfa_code_input = self.safe_find_element_by_id('approvals_code')
 
